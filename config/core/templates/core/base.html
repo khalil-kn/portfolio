@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio</title>
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center p-6 bg-gray-800 shadow-md">
+        <h1 class="text-xl font-bold">Khalil.dev</h1>
+
+        <div class="space-x-6">
+            <a href="#" class="hover:text-blue-400 transition">Home</a>
+            <a href="#" class="hover:text-blue-400 transition">Projects</a>
+            <a href="#" class="hover:text-blue-400 transition">About</a>
+            <a href="#" class="hover:text-blue-400 transition">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="p-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>

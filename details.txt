@@ -1,0 +1,8 @@
+portfolio/
+│
+├── core/        → homepage, about, contact
+├── projects/    → project system
+├── users/       → (optional later: admin extensions)
+└── config/      → main settings
+
+

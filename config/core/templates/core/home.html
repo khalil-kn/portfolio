@@ -8,12 +8,12 @@
         Hi, I'm <span class="text-blue-400">Khalil</span>
     </h1>
 
-    <p class="text-xl text-gray-300 max-w-2xl">
+    <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl leading-relaxed">
         Cybersecurity-focused developer building secure systems, tools, and intelligent solutions.
     </p>
 
     <div class="space-x-4">
-        <a href="#" class="px-6 py-3 bg-blue-500 hover:bg-blue-600 transition rounded-lg font-semibold">
+        <a href="#" class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white transition rounded-lg font-semibold">
             View Projects
         </a>
 
@@ -21,7 +21,6 @@
             Contact Me
         </a>
     </div>
-
 </section>
 
 <section class="mt-20">
@@ -31,42 +30,51 @@
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for project in projects %}
-        <a href="{% url 'project_detail' project.id %}">
-        <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:scale-105 transition duration-300">
+        {% comment %} <a href="{% url 'project_detail' project.id %}"> {% endcomment %}
+        <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:scale-105 transition duration-300">
 
-            <img src="{{ project.image|default:'https://via.placeholder.com/400x200' }}" class="w-full h-48 object-cover">
+    <img src="{{ project.image|default:'https://via.placeholder.com/400x200' }}"
+         class="w-full h-48 object-cover">
 
-            <div class="p-4 space-y-4">
+    <div class="p-4 space-y-3">
 
-                <h3 class="text-xl font-semibold">{{ project.title }}</h3>
-                <p class="text-gray-400 text-sm">{{ project.description }}</p>
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            <a href="{% url 'project_detail' project.id %}" class="hover:underline">
+        {{ project.title }}
+    </a>
+        </h3>
 
-                <div class="flex flex-wrap gap-2">
-                    {% for tag in project.tag_list %}
-                    <span class="bg-blue-500 text-sm px-2 py-1 rounded">{{ tag }}</span>
-                    {% endfor %}
-                </div>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">
+            {{ project.description }}
+        </p>
 
-
-                <!-- GitHub & Live buttons directly on the card -->
-                <div class="flex gap-2 mt-2">
-                    {% if project.github_link %}
-                    <a href="{{ project.github_link }}" target="_blank"
-                       class="text-xs bg-gray-700 px-2 py-1 rounded hover:bg-gray-600">
-                        GitHub
-                    </a>
-                    {% endif %}
-
-                    {% if project.live_link %}
-                    <a href="{{ project.live_link }}" target="_blank"
-                       class="text-xs bg-blue-500 px-2 py-1 rounded hover:bg-blue-600">
-                        Live
-                    </a>
-                    {% endif %}
-                </div>
-
-            </div>
+        <div class="flex flex-wrap gap-2">
+            {% for tag in project.tag_list %}
+            <span class="bg-blue-500 text-white text-sm px-2 py-1 rounded">
+                {{ tag }}
+            </span>
+            {% endfor %}
         </div>
+
+        <div class="flex gap-2 mt-2">
+            {% if project.github_link %}
+            <a href="{{ project.github_link }}" target="_blank"
+               class="text-xs bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+                GitHub
+            </a>
+            {% endif %}
+
+            {% if project.live_link %}
+            <a href="{{ project.live_link }}" target="_blank"
+               class="text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">
+                Live
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
         </a>
         {% empty %}
         <p class="text-center text-gray-400">No projects yet.</p>

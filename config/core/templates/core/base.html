@@ -4,23 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Portfolio</title>
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
     <script>
-    if (localStorage.getItem('theme') === 'dark') {
+(function () {
+    const theme = localStorage.getItem('theme');
+
+    if (theme === 'dark') {
         document.documentElement.classList.add('dark');
     }
+})();
 </script>
-    <link href="{% static 'css/output.css' %}" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">    <!-- Navbar -->
-    <nav class="flex justify-between items-center p-6 bg-white dark:bg-neutral-800 shadow-md transition-colors duration-300">
-        <h1 class="text-xl font-bold">Khalil.dev</h1>
+<nav class="sticky top-0 z-50 flex justify-between items-center p-6 bg-white dark:bg-neutral-800 shadow-md transition-colors duration-300">        <h1 class="text-xl font-bold">Khalil.dev</h1>
 
         <div class="space-x-6">
-            <a href="#" class="hover:text-emerald-400 transition">Home</a>
-            <a href="#" class="hover:text-emerald-400 transition">Projects</a>
-            <a href="#" class="hover:text-emerald-400 transition">About</a>
-            <a href="#" class="hover:text-emerald-400 transition">Contact</a>
+        <a href="/#About" data-section="About" class="nav-link relative hover:text-emerald-400 transition">Home</a>
+        <a href="/#Projects" data-section="Projects" class="nav-link relative hover:text-emerald-400 transition">Projects</a>
+        <a href="/#Skills" data-section="Skills" class="nav-link relative hover:text-emerald-400 transition">Skills</a>
+        <a href="/#Contact" data-section="Contact" class="nav-link relative hover:text-emerald-400 transition">Contact</a>
             <button id="theme-toggle"
             class="gap-2 bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-lg hover:scale-105 transition">
 
@@ -67,13 +70,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-{% comment %} Terminal animation {% endcomment %}
 document.addEventListener("DOMContentLoaded", function () {
-    const text = [
-        "> initializing secure systems...",
-        "> scanning vulnerabilities...",
-        "> building resilient tools..."
-    ];
+
+const text = [
+    "> Web Security & OWASP...",
+    "> Backend Development...",
+    "> Network Analysis & Scanning...",
+    "> Building secure systems..."
+];
 
     let line = 0;
     let char = 0;
@@ -95,6 +99,38 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     type();
+});
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    function activateLink() {
+        let current = "";
+
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+
+            // check if section is near center of screen
+            if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                current = section.getAttribute("id");
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove("text-emerald-500", "font-semibold");
+
+            if (link.dataset.section === current) {
+                link.classList.add("text-emerald-500", "font-semibold");
+            }
+        });
+    }
+
+    window.addEventListener("scroll", activateLink);
+
 });
 </script>
 </body>

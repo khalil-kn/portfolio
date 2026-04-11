@@ -2,30 +2,26 @@
 
 {% block content %}
 
-<section class="grid md:grid-cols-2 gap-10 items-center h-[80vh]">
+<section id="About" class="grid md:grid-cols-2 gap-10 items-center h-[80vh]">
 
-    <!-- LEFT SIDE -->
+    <!-- LEFT SIDE (TEXT) -->
     <div class="space-y-6 text-center md:text-left">
 
-        <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white">
-            Hi, I'm <span class="text-emerald-500 dark:text-emerald-400">Khalil</span>
-        </h1>
+        <h2 class="text-4xl font-bold text-gray-900 dark:text-white">
+            About Me
+        </h2>
 
-        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-xl leading-relaxed">
-            Cybersecurity-focused developer building secure systems, tools, and intelligent solutions.
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            I'm Khalil, a cybersecurity-focused developer passionate about building secure systems and understanding how applications can be exploited and protected.
         </p>
 
-        <div class="space-x-4">
-            <a href="#"
-               class="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white transition rounded-lg font-semibold">
-                View Projects
-            </a>
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            I work mainly with Django and Python, while expanding my skills in networking, APIs, and system-level security.
+        </p>
 
-            <a href="#"
-               class="px-6 py-3 border border-gray-400 dark:border-gray-500 text-gray-900 dark:text-white hover:border-emerald-400 transition rounded-lg">
-                Contact Me
-            </a>
-        </div>
+        <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            My goal is to become a cybersecurity engineer capable of identifying vulnerabilities and designing intelligent, secure solutions.
+        </p>
 
     </div>
 
@@ -38,7 +34,7 @@
 
 </section>
 
-<section class="mt-20">
+<section id="Projects" class="mt-20">
     <h2 class="text-3xl font-bold mb-8 text-center">
         Projects
     </h2>
@@ -89,13 +85,13 @@
     </div>
 
 </div>
-        </a>
+        
         {% empty %}
         <p class="text-center text-gray-400">No projects yet.</p>
         {% endfor %}
     </div>
 </section>
-<section class="mt-24 max-w-6xl mx-auto px-4">
+<section id="Skills" class="mt-24 max-w-6xl mx-auto px-4">
 
     <h2 class="text-3xl font-bold mb-10 text-center text-gray-900 dark:text-white">
         Skills & Technologies
@@ -224,6 +220,22 @@
         </div>
 
     </div>
+</section>
+<section id="Contact" class="mt-32 text-center">
+
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+        Contact
+    </h2>
+
+    <p class="text-gray-600 dark:text-gray-300 mb-6">
+        Feel free to reach out for collaboration or opportunities.
+    </p>
+
+    <a href="mailto:khalil.knaissi9@gmail.com"
+       class="px-6 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition">
+        Send Email
+    </a>
+
 </section>
 
 {% endblock %}

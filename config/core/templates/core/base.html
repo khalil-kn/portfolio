@@ -21,7 +21,7 @@
 
         <div class="space-x-6">
         <a href="/#About" data-section="About" class="nav-link relative hover:text-emerald-400 transition">Home</a>
-        <a href="/#Projects" data-section="Projects" class="nav-link relative hover:text-emerald-400 transition">Projects</a>
+        <a href="{% url 'projects_list' %}" data-section="Projects" class="nav-link relative hover:text-emerald-400 transition">Projects</a>
         <a href="/#Skills" data-section="Skills" class="nav-link relative hover:text-emerald-400 transition">Skills</a>
         <a href="/#Contact" data-section="Contact" class="nav-link relative hover:text-emerald-400 transition">Contact</a>
             <button id="theme-toggle"
@@ -111,10 +111,15 @@ document.addEventListener("DOMContentLoaded", function () {
     function activateLink() {
         let current = "";
 
+        const path = window.location.pathname;
+
+        if (path.includes("projects")) {
+            current = "Projects";
+        }
+
         sections.forEach(section => {
             const rect = section.getBoundingClientRect();
 
-            // check if section is near center of screen
             if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
                 current = section.getAttribute("id");
             }
@@ -129,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    activateLink();
     window.addEventListener("scroll", activateLink);
 
 });

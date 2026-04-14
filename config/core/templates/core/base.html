@@ -139,5 +139,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (!window.location.pathname.includes("projects")) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const activeTag = params.get("tag");
+
+    if (!activeTag) return;
+
+    document.querySelectorAll(".tag").forEach(tag => {
+        if (tag.dataset.tag === activeTag) {
+            tag.classList.add("bg-black", "text-white");
+        }
+    });
+
+});
+</script>
+
 </body>
 </html>

@@ -12,7 +12,14 @@ def project_detail(request, id):
     return render(request, 'core/project_detail.html', {'project': project})
 
 def projects_list(request):
-    projects = Project.objects.all().order_by('-created_at')
-    return render(request, 'core/projects.html', {
-        'projects': projects
+    tag = request.GET.get("tag")
+
+    projects = Project.objects.all()
+
+    if tag:
+        projects = projects.filter(tags__icontains=tag)
+
+    return render(request, "core/projects.html", {
+        "projects": projects,
+        "active_tag": tag
     })

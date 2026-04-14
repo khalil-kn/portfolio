@@ -30,9 +30,10 @@
 
                 <div class="flex flex-wrap gap-2">
                     {% for tag in project.tag_list %}
-                    <span class="bg-emerald-500 text-white text-sm px-2 py-1 rounded">
+                    <a href="{% url 'projects_list' %}?tag={{ tag }}"
+                    class="bg-emerald-500 text-white text-sm px-2 py-1 rounded hover:opacity-80 transition">
                         {{ tag }}
-                    </span>
+                    </a>
                     {% endfor %}
                 </div>
 

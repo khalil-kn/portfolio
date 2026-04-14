@@ -12,6 +12,7 @@ class Project(models.Model):
     live_link = models.URLField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
     def tag_list(self):
         return [tag.strip() for tag in self.tags.split(',') if tag]
 

@@ -40,56 +40,58 @@
     </h2>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% for project in projects %}
-        <div class="bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg hover:scale-105 transition duration-300">
+    {% for project in projects %}
+    <div class="project-card bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg hover:scale-105 transition duration-300"
+         data-tags="{{ project.tag_list|join:',' }}">
 
-    <img src="{{ project.image|default:'https://via.placeholder.com/400x200' }}"
-         class="w-full h-48 object-cover">
+        <img src="{{ project.image|default:'https://via.placeholder.com/400x200' }}"
+             class="w-full h-48 object-cover">
 
-    <div class="p-4 space-y-3">
+        <div class="p-4 space-y-3">
 
-        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-            <a href="{% url 'project_detail' project.id %}" class="hover:underline">
-        {{ project.title }}
-    </a>
-        </h3>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                <a href="{% url 'project_detail' project.id %}" class="hover:underline">
+                    {{ project.title }}
+                </a>
+            </h3>
 
-        <p class="text-gray-600 dark:text-gray-400 text-sm">
-            {{ project.description }}
-        </p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">
+                {{ project.description }}
+            </p>
 
-        <div class="flex flex-wrap gap-2">
-            {% for tag in project.tag_list %}
-            <span class="bg-emerald-500 text-white text-sm px-2 py-1 rounded">
-                {{ tag }}
-            </span>
-            {% endfor %}
-        </div>
+            <div class="flex flex-wrap gap-2">
+                {% for tag in project.tag_list %}
+                <a href="{% url 'projects_list' %}?tag={{ tag }}"
+                class="bg-emerald-500 text-white text-sm px-2 py-1 rounded hover:opacity-80 transition">
+                    {{ tag }}
+                </a>
+                {% endfor %}
+            </div>
 
-        <div class="flex gap-2 mt-2">
-            {% if project.github_link %}
-            <a href="{{ project.github_link }}" target="_blank"
-               class="text-xs bg-gray-200 dark:bg-neutral-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
-                GitHub
-            </a>
-            {% endif %}
+            <div class="flex gap-2 mt-2">
+                {% if project.github_link %}
+                <a href="{{ project.github_link }}" target="_blank"
+                   class="text-xs bg-gray-200 dark:bg-neutral-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600">
+                    GitHub
+                </a>
+                {% endif %}
 
-            {% if project.live_link %}
-            <a href="{{ project.live_link }}" target="_blank"
-               class="text-xs bg-emerald-500 text-white px-2 py-1 rounded hover:bg-emerald-600">
-                Live
-            </a>
-            {% endif %}
+                {% if project.live_link %}
+                <a href="{{ project.live_link }}" target="_blank"
+                   class="text-xs bg-emerald-500 text-white px-2 py-1 rounded hover:bg-emerald-600">
+                    Live
+                </a>
+                {% endif %}
+            </div>
+
         </div>
 
     </div>
 
+    {% empty %}
+    <p class="text-center text-gray-400">No projects yet.</p>
+    {% endfor %}
 </div>
-        
-        {% empty %}
-        <p class="text-center text-gray-400">No projects yet.</p>
-        {% endfor %}
-    </div>
 </section>
 <section id="Skills" class="mt-24 max-w-6xl mx-auto px-4">
 

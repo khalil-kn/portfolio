@@ -17,7 +17,7 @@ def projects_list(request):
     projects = Project.objects.all()
 
     if tag:
-        projects = projects.filter(tags__icontains=tag)
+        projects = projects.filter(tags__name=tag)
 
     return render(request, "core/projects.html", {
         "projects": projects,

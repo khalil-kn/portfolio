@@ -683,10 +683,6 @@ video {
   max-width: 72rem;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -937,6 +933,11 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity, 1));
 }
 
 .shadow-lg {

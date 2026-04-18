@@ -17,9 +17,13 @@
 </head>
 
 <body class="bg-gray-100 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">    <!-- Navbar -->
-<nav class="sticky top-0 z-50 flex justify-between items-center p-6 bg-white dark:bg-neutral-800 shadow-md transition-colors duration-300">        <h1 class="text-xl font-bold">Khalil.dev</h1>
-
-        <div class="space-x-6">
+<nav class="relative sticky top-0 z-50 flex justify-between items-center p-6 bg-white dark:bg-neutral-800 shadow-md transition-colors duration-300">        
+        <h1 class="text-xl font-bold">Khalil.dev</h1>
+<!-- Mobile Menu Button -->
+    <button id="menu-toggle" class="md:hidden text-2xl">
+        ☰
+    </button>
+        <div id="nav-links" class="hidden md:flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6 absolute md:static top-20 left-0 w-full md:w-auto bg-white dark:bg-neutral-800 p-6 md:p-0 shadow-md md:shadow-none transition-all duration-300">
         <a href="/#About" data-section="About" class="nav-link relative hover:text-emerald-400 transition">Home</a>
         <a href="{% url 'projects_list' %}" data-section="Projects" class="nav-link relative hover:text-emerald-400 transition">Projects</a>
         <a href="/#Skills" data-section="Skills" class="nav-link relative hover:text-emerald-400 transition">Skills</a>
@@ -41,6 +45,34 @@
 
             </button>
         </div>
+        <div id="mobile-menu"
+     class="hidden md:hidden absolute top-full left-0 w-full
+      bg-white dark:bg-neutral-800 shadow-lg flex flex-col 
+      items-center gap-4 py-4 z-40">
+
+        <a href="/#About" class="hover:text-emerald-400 transition">Home</a>
+        <a href="{% url 'projects_list' %}" class="hover:text-emerald-400 transition">Projects</a>
+        <a href="/#Skills" class="hover:text-emerald-400 transition">Skills</a>
+        <a href="/#Contact" class="hover:text-emerald-400 transition">Contact</a>
+        <button id="theme-toggle" 
+            class="gap-2 bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-lg hover:scale-105 transition">
+
+            <!-- Moon Icon -->
+            <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 12.79A9 9 0 1111.21 3c0 .34.02.67.05 1A7 7 0 0021 12.79z"/>
+            </svg>
+
+            <!-- Sun Icon -->
+            <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 3v1m0 16v1m8.66-10H21m-16 0H3m15.36 6.36l-.7-.7M6.34 6.34l-.7-.7m12.02 0l-.7.7M6.34 17.66l-.7.7M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+
+            </button>
+        </div>
+
+    </div>
     </nav>
 
     <!-- Content -->
@@ -155,6 +187,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+});
+
+
+
+</script>
+<script>
+document.getElementById("menu-toggle").addEventListener("click", function () {
+    const menu = document.getElementById("mobile-menu");
+    menu.classList.toggle("hidden");
 });
 </script>
 

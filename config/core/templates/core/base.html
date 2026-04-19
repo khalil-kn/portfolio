@@ -17,8 +17,7 @@
 </head>
 
 <body class="bg-gray-100 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">    <!-- Navbar -->
-<nav class="relative sticky top-0 z-50 flex justify-between items-center p-6 bg-white dark:bg-neutral-800 shadow-md transition-colors duration-300">        
-        <h1 class="text-xl font-bold">Khalil.dev</h1>
+<nav class="relative z-50 sticky top-0 relative flex justify-between items-center p-6 bg-white dark:bg-neutral-800 shadow-md transition-colors duration-300">        <h1 class="text-xl font-bold">Khalil.dev</h1>
 <!-- Mobile Menu Button -->
     <button id="menu-toggle" class="md:hidden text-2xl">
         ☰
@@ -29,7 +28,7 @@
         <a href="/#Skills" data-section="Skills" class="nav-link relative hover:text-emerald-400 transition">Skills</a>
         <a href="/#Contact" data-section="Contact" class="nav-link relative hover:text-emerald-400 transition">Contact</a>
             <button id="theme-toggle"
-            class="gap-2 bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-lg hover:scale-105 transition">
+            class="theme-toggle gap-2 bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-lg hover:scale-105 transition">
 
             <!-- Moon Icon -->
             <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,16 +45,18 @@
             </button>
         </div>
         <div id="mobile-menu"
-     class="hidden md:hidden absolute top-full left-0 w-full
-      bg-white dark:bg-neutral-800 shadow-lg flex flex-col 
-      items-center gap-4 py-4 z-40">
+     class="hidden flex flex-col items-center gap-6 
+            bg-white dark:bg-neutral-800 
+            absolute top-full right-0
+            w-52 py-6  shadow-lg 
+            transition-all duration-300">
 
         <a href="/#About" class="hover:text-emerald-400 transition">Home</a>
         <a href="{% url 'projects_list' %}" class="hover:text-emerald-400 transition">Projects</a>
         <a href="/#Skills" class="hover:text-emerald-400 transition">Skills</a>
         <a href="/#Contact" class="hover:text-emerald-400 transition">Contact</a>
-        <button id="theme-toggle" 
-            class="gap-2 bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-lg hover:scale-105 transition">
+        <button id="theme-toggle"  
+            class="theme-toggle relative z-50  gap-2 bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded-lg hover:scale-105 transition">
 
             <!-- Moon Icon -->
             <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,25 +83,30 @@
     </main>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const toggleBtn = document.getElementById('theme-toggle');
 
-    //  Load saved theme
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark');
+    // Apply saved theme
+    if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark");
     } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
     }
+// get all the clicks and see if it's the 
+//theme toggle button then apply the changes ( even delegation )
+   
+    document.addEventListener("click", function (e) {
+        const btn = e.target.closest("#theme-toggle");
 
-    //  Toggle + save
-    toggleBtn.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
+        if (!btn) return; // click wasn't on the button
 
-        if (document.documentElement.classList.contains('dark')) {
-            localStorage.setItem('theme', 'dark');
+        document.documentElement.classList.toggle("dark");
+
+        if (document.documentElement.classList.contains("dark")) {
+            localStorage.setItem("theme", "dark");
         } else {
-            localStorage.setItem('theme', 'light');
+            localStorage.setItem("theme", "light");
         }
     });
+
 });
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -196,6 +202,15 @@ document.addEventListener("DOMContentLoaded", function () {
 document.getElementById("menu-toggle").addEventListener("click", function () {
     const menu = document.getElementById("mobile-menu");
     menu.classList.toggle("hidden");
+});
+
+// the menu get's closed automatically when the screen goes larg again
+const menu = document.getElementById("mobile-menu");
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768) { // md breakpoint
+        menu.classList.add("hidden");
+    }
 });
 </script>
 

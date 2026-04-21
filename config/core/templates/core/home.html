@@ -2,12 +2,11 @@
 
 {% block content %}
 
-<section id="About" class="grid md:grid-cols-2 gap-10 items-center min-h-[80vh] px-4">
-
+<section id="About" class="grid md:grid-cols-2 gap-10 items-center min-h-[60vh] py-16">
     <!-- LEFT SIDE (TEXT) -->
     <div class="space-y-6 text-center md:text-left">
 
-        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-10">
             About Me
         </h2>
 
@@ -26,7 +25,7 @@
     </div>
 
     <!-- RIGHT SIDE (TERMINAL) -->
-    <div class="bg-black text-green-400 font-mono text-sm p-6 rounded-xl shadow-lg h-[250px] flex items-center">
+    <div class="bg-black text-green-400 font-mono text-sm p-6 rounded-xl shadow-lg min-h-[200px] flex items-center justify-center md:justify-start">
 
         <div id="terminal-text"></div>
 
@@ -34,14 +33,14 @@
 
 </section>
 
-<section id="Projects" class="mt-20">
-    <h2 class="text-2xl md:text-3xl lg:text-4xl  font-bold mb-8 text-center">
+<section id="Projects" class="mt-16 md:mt-20">
+    <h2 class="text-2xl md:text-3xl lg:text-4xl  font-bold mb-10 text-center">
         Projects
     </h2>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-6 lg:px-0">
     {% for project in projects %}
-    <div class="project-card bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg hover:scale-105 transition duration-300"
+    <div class="project-card bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-lg hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
          data-tags="{{ project.tag_list|join:',' }}">
 
         <img src="{{ project.image|default:'https://via.placeholder.com/400x200' }}"
@@ -62,7 +61,7 @@
             <div class="flex flex-wrap gap-2">
                 {% for tag in project.tags.all %}
                 <a href="{% url 'projects_list' %}?tag={{ tag.name }}"
-                class="bg-emerald-500 text-white text-sm px-2 py-1 rounded hover:opacity-80 transition">
+                class="bg-emerald-500 text-white text-sm px-2 py-1 rounded hover:bg-emerald-600 hover:scale-105 transition">
                     {{ tag }}
                 </a>
                 {% endfor %}
@@ -93,7 +92,7 @@
     {% endfor %}
 </div>
 </section>
-<section id="Skills" class="mt-24 max-w-6xl mx-auto px-4">
+<section id="Skills" class="mt-16 md:mt-20 max-w-6xl mx-auto px-4">
 
     <h2 class="text-2xl md:text-3xl lg:text-4xl  font-bold mb-10 text-center text-gray-900 dark:text-white">
         Skills & Technologies
@@ -223,21 +222,34 @@
 
     </div>
 </section>
-<section id="Contact" class="mt-32 text-center">
 
-    <h2 class="text-2xl md:text-3xl lg:text-4xl  font-bold mb-6 text-gray-900 dark:text-white">
-        Contact
+<section id="Contact" class="mt-16 md:mt-24 max-w-3xl mx-auto px-4">
+
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 text-gray-900 dark:text-white">
+        Contact Me
     </h2>
 
-    <p class="text-gray-600 dark:text-gray-300 mb-6">
-        Feel free to reach out for collaboration or opportunities.
-    </p>
+    <form method="POST" class="space-y-6">
+        {% csrf_token %}
 
-    <a href="mailto:khalil.knaissi9@gmail.com"
-       class="px-6 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition">
-        Send Email
-    </a>
+        <input type="text" name="name" placeholder="Your Name"
+            class="w-full p-3 rounded-lg bg-gray-100 dark:bg-neutral-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            required>
+
+        <input type="email" name="email" placeholder="Your Email"
+            class="w-full p-3 rounded-lg bg-gray-100 dark:bg-neutral-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            required>
+
+        <textarea name="message" rows="5" placeholder="Your Message"
+            class="w-full p-3 rounded-lg bg-gray-100 dark:bg-neutral-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            required></textarea>
+
+        <button type="submit"
+            class="w-full bg-emerald-500 text-white py-3 rounded-lg hover:bg-emerald-600 hover:scale-105 transition">
+            Send Message
+        </button>
+
+    </form>
 
 </section>
-
 {% endblock %}

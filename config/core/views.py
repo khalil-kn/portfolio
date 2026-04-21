@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect 
 from .models import Project
 
 
@@ -22,4 +22,22 @@ def projects_list(request):
     return render(request, "core/projects.html", {
         "projects": projects,
         "active_tag": tag
+    })
+
+
+
+
+from .forms import ContactForm
+
+def home(request):
+    form = ContactForm()
+
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')  # refresh page after submit
+
+    return render(request, "core/home.html", {
+        "form": form
     })

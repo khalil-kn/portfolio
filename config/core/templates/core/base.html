@@ -16,8 +16,10 @@
 </script>
 </head>
 
-<body class="bg-gray-100 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">    <!-- Navbar -->
-<nav class="relative z-50 sticky top-0 relative flex justify-between items-center p-6 bg-white dark:bg-neutral-800 shadow-md transition-colors duration-300">        <h1 class="text-xl font-bold">Khalil.dev</h1>
+<body class="bg-gray-100 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">    
+<!-- Navbar -->
+<nav class="relative z-50 sticky top-0 relative flex justify-between items-center px-4 py-4 md:px-6 bg-white dark:bg-neutral-800 shadow-md transition-colors duration-300">        
+<h1 class="text-xl font-bold">Khalil.dev</h1>
 <!-- Mobile Menu Button -->
     <button id="menu-toggle" class="md:hidden text-2xl">
         ☰
@@ -122,19 +124,27 @@ const text = [
     const speed = 30;
 
     function type() {
-        if (line < text.length) {
-            if (char < text[line].length) {
-                document.getElementById("terminal-text").innerHTML += text[line].charAt(char);
-                char++;
-                setTimeout(type, speed);
-            } else {
-                document.getElementById("terminal-text").innerHTML += "<br>";
-                line++;
-                char = 0;
-                setTimeout(type, 300);
-            }
+    if (line < text.length) {
+        if (char < text[line].length) {
+            document.getElementById("terminal-text").innerHTML += text[line].charAt(char);
+            char++;
+            setTimeout(type, speed);
+        } else {
+            document.getElementById("terminal-text").innerHTML += "<br>";
+            line++;
+            char = 0;
+            setTimeout(type, 500);
         }
+    } else {
+        // restart after finishing
+        setTimeout(() => {
+            document.getElementById("terminal-text").innerHTML = "";
+            line = 0;
+            char = 0;
+            type();
+        }, 1500);
     }
+}
 
     type();
 });
@@ -212,7 +222,36 @@ window.addEventListener("resize", () => {
         menu.classList.add("hidden");
     }
 });
+
+//sections fade and slide in
+document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll("section");
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+                // when entering
+                entry.target.classList.remove("opacity-0", "translate-y-10");
+                entry.target.classList.add("opacity-100", "translate-y-0");
+            } else {
+                // when leaving 
+                entry.target.classList.remove("opacity-100", "translate-y-0");
+                entry.target.classList.add("opacity-0", "translate-y-10");
+            }
+
+        });
+    }, { threshold: 0.2 });
+
+    sections.forEach(section => {
+        section.classList.add("opacity-0", "translate-y-10", "transition-all", "duration-700");
+        observer.observe(section);
+    });
+});
+
+
 </script>
+
 
 </body>
 </html>

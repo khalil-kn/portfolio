@@ -8,3 +8,4 @@ class ProjectAdmin(admin.ModelAdmin):
     search_fields = ('title', 'tags')
 
 admin.site.register(Tag)
+admin.site.register(ContactMessage)

@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [

@@ -1,11 +1,31 @@
 from django.shortcuts import render, get_object_or_404,redirect 
 from .models import Project
+from .forms import ContactForm
+from django.core.mail import send_mail
+from django.contrib import messages
+
+
 
 
 def home(request):
     projects = Project.objects.all().order_by('-created_at')[:3]
-    return render(request, 'core/home.html', {'projects': projects})
 
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Message sent successfully!")
+            return redirect('/#Contact')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = ContactForm()
+
+    return render(request, 'core/home.html', {
+        'projects': projects,
+        'form': form
+    })
 
 def project_detail(request, id):
     project = get_object_or_404(Project, id=id)
@@ -22,22 +42,4 @@ def projects_list(request):
     return render(request, "core/projects.html", {
         "projects": projects,
         "active_tag": tag
-    })
-
-
-
-
-from .forms import ContactForm
-
-def home(request):
-    form = ContactForm()
-
-    if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')  # refresh page after submit
-
-    return render(request, "core/home.html", {
-        "form": form
     })

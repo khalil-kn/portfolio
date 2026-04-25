@@ -3,7 +3,7 @@ from .models import Project
 from .forms import ContactForm
 from django.core.mail import send_mail
 from django.contrib import messages
-
+import time
 
 
 
@@ -12,13 +12,28 @@ def home(request):
 
     if request.method == "POST":
         form = ContactForm(request.POST)
+        if form.cleaned_data.get('honeypot'):
+        # silently ignore bot
+            return redirect('/#Contact') 
+
+        # Anti-spam cooldown
+        last_submission = request.session.get('last_submission_time')
+
+        if last_submission and time.time() - last_submission < 10:
+            messages.error(request, "Please wait before sending another message.")
+            return redirect('/#Contact')
 
         if form.is_valid():
             form.save()
+
+            request.session['last_submission_time'] = time.time()
+
             messages.success(request, "Message sent successfully!")
             return redirect('/#Contact')
+
         else:
             messages.error(request, "Please correct the errors below.")
+
     else:
         form = ContactForm()
 

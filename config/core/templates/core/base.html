@@ -250,7 +250,68 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+
+    const searchInput = document.getElementById("search-input");
+    const cards = document.querySelectorAll(".project-card");
+    const noResults = document.getElementById("no-results");
+
+    if (!searchInput) return;
+
+    searchInput.addEventListener("input", () => {
+        const query = searchInput.value.toLowerCase().trim();
+
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+
+            const text =
+                (card.dataset.title || "") + " " +
+                (card.dataset.description || "") + " " +
+                (card.dataset.tags || "");
+
+            const match = text.toLowerCase().includes(query);
+
+            if (match || query === "") {
+
+                visibleCount++;
+
+                // restore display but keep hidden state
+                card.style.display = "";
+                card.classList.remove("opacity-100", "scale-100");
+                card.classList.add("opacity-0", "scale-95");
+
+                // animate in (next frame)
+                requestAnimationFrame(() => {
+                    card.classList.remove("opacity-0", "scale-95");
+                    card.classList.add("opacity-100", "scale-100");
+                });
+
+            } else {
+
+                // animate out
+                card.classList.remove("opacity-100", "scale-100");
+                card.classList.add("opacity-0", "scale-95");
+
+                setTimeout(() => {
+                    card.style.display = "none";
+                }, 200);
+            }
+
+        });
+
+        // no results
+        if (visibleCount === 0 && query !== "") {
+            noResults.classList.remove("hidden");
+        } else {
+            noResults.classList.add("hidden");
+        }
+
+    });
+
+});
 </script>
+
 
 
 </body>
